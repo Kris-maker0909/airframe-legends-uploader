@@ -1,0 +1,23 @@
+<!doctype html>
+  <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex"><meta name="referrer" content="no-referrer">
+  <title>TikTok sign-in callback | Airframe Legends Uploader</title></head>
+<body style="font:17px system-ui,sans-serif;max-width:680px;margin:32px auto;padding:0 16px">
+<h1>TikTok sign-in callback</h1>
+  <p>Airframe Legends Uploader. This page only displays what TikTok returned. It stores nothing and sends nothing to any server.</p>
+<p id="status"></p>
+<p>Full callback address:<br><input id="full" readonly style="width:100%"></p>
+  <p><button id="copy">Copy</button> <a id="back" href="#">Return to local app</a></p>
+  <p><a href="../">Home</a> | <a href="../terms/">Terms</a> | <a href="../privacy/">Privacy</a></p>
+  <script>
+  var q=new URLSearchParams(location.search),s=document.getElementById('status');
+document.getElementById('full').value=location.href;
+if(q.get('error')){s.textContent='TikTok returned an error: '+q.get('error');}
+else if(q.get('code')){s.textContent='Authorization received from TikTok.';}
+else{s.textContent='No authorization code in this address. Start from Connect TikTok in the uploader.';}
+var f=new URLSearchParams();
+['code','state','scopes','error','error_description'].forEach(function(k){if(q.get(k)){f.set(k,q.get(k));}});
+document.getElementById('back').href='http://127.0.0.1:8765/callback/?'+f.toString();
+document.getElementById('copy').onclick=function(){var e=document.getElementById('full');e.select();document.execCommand('copy');};
+</script></body></html>
+  
